@@ -1,7 +1,6 @@
 from django.shortcuts import render
 
-from django.http import HttpResponse
-
+from django.http import HttpResponse, Http404
 from .models import Board
 
 def home(request):
@@ -18,7 +17,10 @@ def home(request):
 
 def board_topics(request, pk):
     # return HttpResponse("List of board topics")
-    board = Board.objects.get(pk=pk)
+    try:
+        board = Board.objects.get(pk=pk)
+    except Board.DoesNotExist:
+        raise Http404
     return render(request, 'topics.html', {'board': board})
 
 def about(request):
