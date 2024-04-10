@@ -19,6 +19,10 @@ from django.urls import path
 from django.urls import include, re_path
 # from django.conf.urls import url
 from boards import views
+from accounts import views as accounts_views
+
+
+
 urlpatterns = [
     path('', views.home, name='home'),
     re_path(r'^about/$', views.about, name='about'),
@@ -31,4 +35,7 @@ urlpatterns = [
     re_path(r'^boards/(?P<pk>\d+)/$', views.board_topics, name='board_topics'),
     re_path(r'^boards/(?P<pk>\d+)/new/$', views.new_topic, name='new_topic'),
     path('admin/', admin.site.urls),
+
+
+    re_path(r'^signup/$', accounts_views.signup, name='signup'),
 ]
