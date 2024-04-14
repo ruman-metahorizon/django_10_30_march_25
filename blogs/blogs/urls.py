@@ -21,6 +21,8 @@ from django.urls import include, re_path
 from boards import views
 from accounts import views as accounts_views
 
+from django.contrib.auth import views as auth_views
+
 
 
 urlpatterns = [
@@ -38,4 +40,5 @@ urlpatterns = [
 
 
     re_path(r'^signup/$', accounts_views.signup, name='signup'),
+    re_path(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
 ]
