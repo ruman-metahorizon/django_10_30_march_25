@@ -40,8 +40,12 @@ urlpatterns = [
     re_path(r"^boards/(?P<pk>\d+)/new/$", views.new_topic, name="new_topic"),
     re_path(r'^boards/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/$', views.topic_posts, name='topic_posts'),
     
+    re_path(r'^boards/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/reply/$', views.reply_topic, name='reply_topic'),
     path("admin/", admin.site.urls),
 
+    path(r'^new_post/$', views.NewPostView.as_view(), name='new_post'),
+    path(r'^boards/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/posts/(?P<post_pk>\d+)/edit/$',
+        views.PostUpdateView.as_view(), name='edit_post'),
 
 
     re_path(r"^signup/$", accounts_views.signup, name="signup"),
