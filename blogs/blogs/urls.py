@@ -26,7 +26,7 @@ from django.contrib.auth import views as auth_views
 
 
 urlpatterns = [
-    path("", views.home, name="home"),
+    path(r'', views.BoardListView.as_view(), name='home'),
     re_path(r"^about/$", views.about, name="about"),
     re_path(r"^questions/(?P<pk>\d+)/$", views.question, name="question"),
     re_path(r"^posts/(?P<slug>[-\w]+)/$", views.post, name="post"),
@@ -36,9 +36,12 @@ urlpatterns = [
     ),
     re_path(r"^articles/(?P<year>[0-9]{4})/$", views.year_archive, name="year"),
     # re_path(r'^$', views.home, name='home'),
-    re_path(r"^boards/(?P<pk>\d+)/$", views.board_topics, name="board_topics"),
+    # re_path(r"^boards/(?P<pk>\d+)/$", views.board_topics, name="board_topics"),
+    re_path(r'^boards/(?P<pk>\d+)/$', views.TopicListView.as_view(), name='board_topics'),
+
     re_path(r"^boards/(?P<pk>\d+)/new/$", views.new_topic, name="new_topic"),
-    re_path(r'^boards/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/$', views.topic_posts, name='topic_posts'),
+    # re_path(r'^boards/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/$', views.topic_posts, name='topic_posts'),
+    re_path(r'^boards/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/$', views.PostListView.as_view(), name='topic_posts'),
     
     re_path(r'^boards/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/reply/$', views.reply_topic, name='reply_topic'),
     path("admin/", admin.site.urls),
@@ -89,4 +92,8 @@ urlpatterns = [
         name='password_change'),
     re_path(r'^settings/password/done/$', auth_views.PasswordChangeDoneView.as_view(template_name='password_change_done.html'),
         name='password_change_done'),
+
+
+
+    re_path(r'^settings/account/$', accounts_views.UserUpdateView.as_view(), name='my_account'),
 ]
